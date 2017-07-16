@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8"/>
+		<title>Chapter 10, example 1</title>
+	</head>
+
+	<body bgcolor="blue">
+
+		<p ondblclick="handle(event)">Paragraph</p>
+		<span onmouseover="handle(event)">Mouse Over</span>
+		<img src="usa.gif" onclick="changeImg(this)" />
+		<img src="mexico.gif" onclick="changeImg(this)" />
+
+		
+		<script>
+
+			var myImages = ["usa.gif", "mexico.gif", "canada.gif", "jamaica.gif"];
+
+			function changeImg(that) {
+				var newImgNumber = Math.round(Math.random() * 3);
+
+           		while (that.src.indexOf(myImages[newImgNumber]) != -1) {
+                	newImgNumber = Math.round(Math.random() * 3);
+            	}
+
+            	that.src = myImages[newImgNumber];
+			}
+
+			function handle(e) {    alert(e.type);}
+		</script>
+
+	</body>
+</html>

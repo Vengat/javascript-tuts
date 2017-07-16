@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Chapter 10 egs 3</title>
+	</head>
+
+	<body bgcolor="yellow">
+		<a id="mylink" href="nowhere.html">
+			Click Me
+		</a>
+
+		<script>
+			function clickLink() {
+				alert("This link is no where");
+				return false;
+			}
+
+			document.getElementById("myLink").onclick = clickLink;
+		</script>
+	</body>
+
+</html>

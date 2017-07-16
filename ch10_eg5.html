@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Chapter 10 Example 5</title>
+	</head>
+
+	<body>
+		
+		<a id="somelink" href="http://www.google.com">
+			Click Me
+		</a>
+
+		<script src="/javascripts/application.js" type="text/javascript" charset="utf-8" async defer>
+			
+			var link = documet.getElementById('somelink');
+			link.addEventListener("click", function(e) {
+				alert("This link is going no where");
+				e.preventDefault();
+			});
+		</script>
+	</body>
+</html>

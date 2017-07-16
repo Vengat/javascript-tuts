@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Chapter 10 Example 6</title>
+</head>
+
+<body>
+	<img id='img0' src="jamaica.gif"/>
+	<div id='status'></div>
+
+	<script>
+		var myImages=['canada.gif', 'usa.gif', 'mexico.gif' ,'jamaica.gif'];
+
+		function changeImage(e) {
+			var e1 = e.target;
+			var newImgNumber = Math.round(Math.random() * 3);
+
+			while (e1.src.indexOf(myImages[newImgNumber]) != -1) {
+				newImgNumber = Math.round(Math.random() * 3);
+			}
+			e1.src = myImages[newImgNumber];
+		}
+
+		function updateStatus(e) {
+			var e1 = e.target;
+			var status = document.getElementById('status');
+
+			status.innerHTML = "The image changed to " + e1.src;
+
+			if (e1.src.indexOf("mexico") > -1) {
+				e1.removeEventListener('click', changeImage);
+				e1.removeEventListener('click', updateStatus);
+			}
+		}
+
+		var imgObj = document.getElementById('img0');
+
+		imgObj.addEventListener("click", changeImage);
+		imgObj.addEventListener("click", updateStatus);
+
+	</script>
+
+
+</body>
+</html>

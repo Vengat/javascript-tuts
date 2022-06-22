@@ -17,7 +17,7 @@ function getPlanet() {
 function getPlanets() {
     fetch("https://swapi.dev/api/planets/")
     .then(data => data.json())
-    .then(planets => fetch(planets.next))
+    .then(planets => populatePlanets(planets.results))
     .catch(err => console.log(err.message));
 }
 

@@ -2,15 +2,29 @@
 //returns a Promise
 
 const planetDiv = document.getElementById("planet");
-const myButton = planetDiv.querySelector("button");
-
-myButton.addEventListener("click", getPlanet);
-
+//const myButton = planetDiv.querySelector("button");
+const singlePlanetButton = document.getElementById("single");
+const multiPlanetsButton = document.getElementById("multiple");
+singlePlanetButton.addEventListener("click", getPlanet);
+multiPlanetsButton.addEventListener("click", getPlanets);
 function getPlanet() {
     fetch("https://swapi.dev/api/planets/1/")
     .then(data => console.log(data))
     .then(d => populatePlanet(d.json))
     .catch(err => console.log(err.message));
+}
+
+function getPlanets() {
+    fetch("https://swapi.dev/api/planets/")
+    .then(data => data.json())
+    .then(planets => fetch(planets.next))
+    .catch(err => console.log(err.message));
+}
+
+function populatePlanets(planets) {
+    for(const planet of planets) {
+        populatePlanet_New(planet);
+    }
 }
 
 function populatePlanet(planetObj) {
@@ -30,5 +44,6 @@ function populatePlanet_New(planetObj) {
         </p>
     <div>
     `
-    planetDiv.innerHTML += planetDiv;
+    //planetDiv.innerHTML += planetDiv;
+    planetDiv.insertAdjacentHTML("beforeend", planetDiv);
 }

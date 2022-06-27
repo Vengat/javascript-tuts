@@ -21,9 +21,9 @@ function getPlanets() {
     .catch(err => console.log(err.message));
 }
 
-function populatePlanets(planets) {
-    for(const planet of planets) {
-        populatePlanet_New(planet);
+function populatePlanets(planetsArray) {
+    for(const [index, prop] of planetsArray.entries()) {
+        populatePlanet_New(planet, index);
     }
 }
 
@@ -33,10 +33,21 @@ function populatePlanet(planetObj) {
     planetDiv.appendChild(newParagraph);
 }
 
-function populatePlanet_New(planetObj) {
+function populatePlanet_New(planetObj, index) {
     const {name, climate, terrain, population, orbital_period} = planetObj;
+    let pop;
+    if(population > 0 && population <= 1000000) {
+        pop = "low";
+    } else if(population > 1000000 && population <= 1000000000 ) {
+        pop = "medium";
+    } else if (population > 1000000000) {
+        pop = "high";
+    } else {
+        pop = "unknown";
+    }
+
     const planetDiv = `
-    <div>
+    <div class="planet" data-planetID=${index} data-population=${pop}>
         <h1>${name}</h1>
         <p>
             ${name} has a climate that is ${climate}. The terrain is
@@ -46,4 +57,30 @@ function populatePlanet_New(planetObj) {
     `
     //planetDiv.innerHTML += planetDiv;
     planetDiv.insertAdjacentHTML("beforeend", planetDiv);
+}
+
+const highlighter = document.getElementById("highlighter");
+function showUnpopulated() {
+    const allPlanetDivs = document.querySelectorAll(".planet");
+    for(const prop of allPlanetDivs) {
+        if(prop.dataset.population === "unknown") {
+            prop.style.backgroundColor = "yellow";
+        }
+    }
+}
+
+const selector = document.getElementById("selector");
+selector.addEventListener("change", highlight);
+
+const allPlanetDivs = document.getElementsByClassName("planet");
+function highlight(e) {
+    console.log(e.target.value());
+    const {value} = e.target;
+    for(const prop of allPlanetDivs) {
+        prop.style.background = "white";
+        if (prop.dataset.population === value) {
+            prop.style.background = "teal";
+        }
+    }
+
 }
